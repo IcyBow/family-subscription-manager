@@ -7,4 +7,4 @@ Simple webapp to manage the payment of your family subscription.
 - Email recap per month or year
 - Send individual email to a person with a recap
 ## Developement
-I will work on this in my spare time as it is not something I need urgently. If you have any suggestion or question, you can reach me [contact@icybow.com](mailto:contact@icybow.com).
+I will work on this in my spare time as it is not something I need urgently. If you have any suggestion or question, you can [reach me](mailto:contact@icybow.com).
