@@ -11,10 +11,10 @@ email TEXT,
 phone TEXT, 
 uuid TEXT UNIQUE,
 pW TEXT, 
-email_recap INT,
-email_recap_frequency INT, -- 0:Daily, 1:Weekly, 2:Monthly
-admin INT DEFAULT 0,
-active INT DEFAULT 1)");
+email_recap INTEGER,
+email_recap_frequency INTEGER, -- 0:Daily, 1:Weekly, 2:Monthly
+admin INTEGER DEFAULT 0,
+active INTEGER DEFAULT 1)");
 // ---- Test Data
 // TODO: Create test if parameter create test data
 $db->exec("INSERT INTO users(name, email, phone, uuid, pw, email_recap, email_recap_frequency, admin) 
@@ -31,11 +31,11 @@ $db->exec("DROP TABLE IF EXISTS subscriptions");
 $db->exec("CREATE TABLE subscriptions(
 id INTEGER PRIMARY KEY, 
 name TEXT, 
-payment_frequency INT DEFAULT 0, -- 0:Undefined, 1:Daily, 2:Weekly, 3:Monthly, 4:Yearly
-auto_create INT DEFAULT 0,
-auto_create_day INT DEFAULT 0, -- Day on which monthly payments are created
-auto_create_month INT DEFAULT 0, -- Month on which yearly payments are created (+ day)
-active INT DEFAULT 1)");
+payment_frequency INTEGER DEFAULT 0, -- 0:Undefined, 1:Daily, 2:Weekly, 3:Monthly, 4:Yearly
+auto_create INTEGER DEFAULT 0,
+auto_create_day INTEGER DEFAULT 0, -- Day on which monthly payments are created
+auto_create_month INTEGER DEFAULT 0, -- Month on which yearly payments are created (+ day)
+active INTEGER DEFAULT 1)");
 // ---- Test Data
 // TODO: Create test if parameter create test data
 $db->exec("INSERT INTO subscriptions(name, payment_frequency, auto_create, auto_create_day) 
