@@ -9,10 +9,10 @@ id INTEGER PRIMARY KEY,
 name TEXT, 
 email TEXT, 
 phone TEXT, 
-uuid TEXT UNIQUE, 
+uuid TEXT UNIQUE,
 pW TEXT, 
 email_recap INT,
-email_recap_frequency INT,
+email_recap_frequency INT, -- 0:Daily, 1:Weekly, 2:Monthly
 admin INT DEFAULT 0,
 active INT DEFAULT 1)");
 // ---- Test Data
@@ -27,6 +27,23 @@ $db->exec("INSERT INTO users(name, email, phone, uuid, pw, email_recap, email_re
 VALUES('Developer A', 'cntac@dfs.be', '05645441', 'df54aff8-5b98-43e1-a603-7bbd48d5d508', 'kgggte', 1, 1)");
 
 // -- Subscriptions table
+$db->exec("DROP TABLE IF EXISTS subscriptions");
+$db->exec("CREATE TABLE subscriptions(
+id INTEGER PRIMARY KEY, 
+name TEXT, 
+payment_frequency INT DEFAULT 0, -- 0:Undefined, 1:Daily, 2:Weekly, 3:Monthly, 4:Yearly
+auto_create INT DEFAULT 0,
+auto_create_day INT DEFAULT 0, -- Day on which monthly payments are created
+auto_create_month INT DEFAULT 0, -- Month on which yearly payments are created (+ day)
+active INT DEFAULT 1)");
+// ---- Test Data
+// TODO: Create test if parameter create test data
+$db->exec("INSERT INTO subscriptions(name, payment_frequency, auto_create, auto_create_day) 
+VALUES('Netflix', 3, 1, 1)");
+$db->exec("INSERT INTO subscriptions(name, payment_frequency, auto_create, auto_create_day) 
+VALUES('Spotify', 3, 1, 1)");
+$db->exec("INSERT INTO subscriptions(name, payment_frequency, auto_create, auto_create_day, auto_create_month) 
+VALUES('Disney Plus', 4, 1, 15, 9)");
 
 // -- Payments table
 
