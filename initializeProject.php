@@ -30,23 +30,40 @@ VALUES('Developer A', 'cntac@dfs.be', '05645441', 'df54aff8-5b98-43e1-a603-7bbd4
 $db->exec("DROP TABLE IF EXISTS subscriptions");
 $db->exec("CREATE TABLE subscriptions(
 id INTEGER PRIMARY KEY, 
-name TEXT, 
-payment_frequency INTEGER DEFAULT 0, -- 0:Undefined, 1:Daily, 2:Weekly, 3:Monthly, 4:Yearly
-auto_create INTEGER DEFAULT 0,
-auto_create_day INTEGER DEFAULT 0, -- Day on which monthly payments are created
-auto_create_month INTEGER DEFAULT 0, -- Month on which yearly payments are created (+ day)
-active INTEGER DEFAULT 1)");
+name TEXT,
+actual_price FLOAT,
+actual_payers INTEGER,
+payment_frequency INT DEFAULT 0, -- 0:Undefined, 1:Daily, 2:Weekly, 3:Monthly, 4:Yearly
+auto_create INT DEFAULT 0,
+auto_create_day INT DEFAULT 0, -- Day on which monthly payments are created
+auto_create_month INT DEFAULT 0, -- Month on which yearly payments are created (+ day)
+active INT DEFAULT 1)");
 // ---- Test Data
 // TODO: Create test if parameter create test data
-$db->exec("INSERT INTO subscriptions(name, payment_frequency, auto_create, auto_create_day) 
-VALUES('Netflix', 3, 1, 1)");
-$db->exec("INSERT INTO subscriptions(name, payment_frequency, auto_create, auto_create_day) 
-VALUES('Spotify', 3, 1, 1)");
-$db->exec("INSERT INTO subscriptions(name, payment_frequency, auto_create, auto_create_day, auto_create_month) 
-VALUES('Disney Plus', 4, 1, 15, 9)");
+$db->exec("INSERT INTO subscriptions(name, actual_price, actual_payers, payment_frequency, auto_create, auto_create_day) 
+VALUES('Netflix', 15.99, 5, 3, 1, 1)");
+$db->exec("INSERT INTO subscriptions(name, actual_price, actual_payers, payment_frequency, auto_create, auto_create_day) 
+VALUES('Spotify', 17.99, 6, 3, 1, 1)");
+$db->exec("INSERT INTO subscriptions(name, actual_price, actual_payers, payment_frequency, auto_create, auto_create_day, auto_create_month) 
+VALUES('Disney Plus', 74.5, 5, 4, 1, 15, 9)");
 
 // -- Payments table
-
+$db->exec("DROP TABLE IF EXISTS subscriptionPayments");
+$db->exec("CREATE TABLE subscriptionPayments(
+id INTEGER PRIMARY KEY, 
+subscription INTEGER, -- Foreign id to subscriptions.id
+date INTEGER, 
+payers INTEGER DEFAULT 1,
+comments TEXT,
+FOREIGN KEY(subscription) REFERENCES subscriptions(id))");
+// ---- Test Data
+// TODO: Create test if parameter create test data
+$db->exec("INSERT INTO subscriptionPayments(subscription, date, payers, comments) 
+VALUES(1, 1680310800, 5, 'all good')");
+$db->exec("INSERT INTO subscriptionPayments(subscription, date, payers, comments) 
+VALUES(1, 1682902800, 5, 'not so great')");
+$db->exec("INSERT INTO subscriptionPayments(subscription, date, payers, comments) 
+VALUES(1, 1685581200, 5, 'ok')");
 
 // Make check if data is available ? DO NOTHING unless you have a certain php parameter : Initialize DB 
 
