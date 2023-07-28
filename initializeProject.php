@@ -9,10 +9,10 @@ id INTEGER PRIMARY KEY,
 name TEXT, 
 email TEXT, 
 phone TEXT, 
-uuid TEXT UNIQUE, 
+uuid TEXT UNIQUE,
 pW TEXT, 
 email_recap INT,
-email_recap_frequency INT,
+email_recap_frequency INT, -- 0:Daily, 1:Weekly, 2:Monthly
 admin INT DEFAULT 0,
 active INT DEFAULT 1)");
 // ---- Test Data
