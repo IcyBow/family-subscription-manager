@@ -28,7 +28,7 @@ if ($action !== '' && $userId !== '') {
     $query = '';
     switch ($action) {
         case "get_Data":
-            $db = new SQLite3('../fsm.db');
+            $db = new SQLite3('../db/fsm.db');
             $query = "SELECT name FROM 'users' WHERE uuid='" . $userId . "'"; // Check if user exists, if so retrieve username
             $userName = $db->querySingle($query);
             if (!is_null($userName)) {
