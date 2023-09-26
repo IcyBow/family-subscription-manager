@@ -42,14 +42,19 @@ if ($action !== '' && $userId !== '') {
                     'subscriptions'=>'SELECT * FROM subscriptions',
                     'subscriptionPayments'=>'SELECT * FROM subscriptionPayments',
                     'cosubscribersPayments'=>'SELECT * FROM cosubscribersPayments'
-                    ];
-                } else {
-                    $query = "SELECT id FROM 'users' WHERE uuid='" . $userId . "'";
-                //error_log(var_dump($query)); die();
+                ];
+            } else {
+                $query = "SELECT id FROM 'users' WHERE uuid='" . $userId . "'";
                 $internalId = $db->querySingle($query);
-                    $queries = ['subscriptions'=>'SELECT * FROM subscriptions',
-                    'subscriptionPayments'=>'SELECT * FROM subscriptionPayments',
-                    'cosubscribersPayments'=>'SELECT * FROM cosubscribersPayments'];
+                    $queries = [
+                    "payments"=>
+                    "SELECT cosubscribersPayments.id as paymentId, date, payed, subscription, name, (price / payers) as price  
+                    FROM cosubscribersPayments 
+                    INNER JOIN subscriptionPayments 
+                    ON subscriptionPayments.id=cosubscribersPayments.subscriptionPayment 
+                    INNER JOIN subscriptions
+                    ON subscriptionPayments.subscription=subscriptions.id
+                    WHERE payer=$internalId"];
                 }
                 foreach($queries as $key => $value) {
                         $queryResult = $db->query($value);

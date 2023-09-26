@@ -61,18 +61,25 @@ $db->exec("DROP TABLE IF EXISTS subscriptionPayments");
 $db->exec("CREATE TABLE subscriptionPayments(
 id INTEGER PRIMARY KEY, 
 subscription INTEGER, -- Foreign id to subscriptions.id
+price FLOAT,
 date INTEGER, 
 payers INTEGER DEFAULT 2,
 comments TEXT,
 FOREIGN KEY(subscription) REFERENCES subscriptions(id))");
 // ---- Test Data
 if ($demo) {
-    $db->exec("INSERT INTO subscriptionPayments(subscription, date, payers, comments) 
-VALUES(1, 1680310800, 3, 'all good')");
-$db->exec("INSERT INTO subscriptionPayments(subscription, date, payers, comments) 
-VALUES(1, 1682902800, 3, 'not so great')");
-$db->exec("INSERT INTO subscriptionPayments(subscription, date, payers, comments) 
-VALUES(1, 1685581200, 3, 'ok')");
+$db->exec("INSERT INTO subscriptionPayments(subscription, price, date, payers, comments) 
+VALUES(1, 15.99, 1680310800, 3, 'all good')");
+$db->exec("INSERT INTO subscriptionPayments(subscription, price, date, payers, comments) 
+VALUES(1, 15.99, 1682902800, 3, 'not so great')");
+$db->exec("INSERT INTO subscriptionPayments(subscription, price, date, payers, comments) 
+VALUES(1, 15.99, 1685581200, 3, 'ok')");
+$db->exec("INSERT INTO subscriptionPayments(subscription, price, date, payers, comments) 
+VALUES(2, 17.99, 1680310800, 3, 'all good')");
+$db->exec("INSERT INTO subscriptionPayments(subscription, price, date, payers, comments) 
+VALUES(2, 17.99, 1682902800, 3, 'not so great')");
+$db->exec("INSERT INTO subscriptionPayments(subscription, price, date, payers, comments) 
+VALUES(2, 17.99, 1685581200, 3, 'ok')");
 }
 
 // -- Payments of co-subscribers
@@ -81,27 +88,40 @@ $db->exec("CREATE TABLE cosubscribersPayments(
 id INTEGER PRIMARY KEY, 
 subscriptionPayment INTEGER, -- Foreign id to subscriptions.id
 payer INTEGER, -- Foreign id to users.id
-date INTEGER, 
 payed INT DEFAULT 0, 
 comments TEXT,
 FOREIGN KEY(subscriptionPayment) REFERENCES subscriptionPayments(id),
 FOREIGN KEY(payer) REFERENCES users(id))");
 // ---- Test Data
 if ($demo) {
-$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, date, payed, comments) 
-VALUES(1, 2, 1680310800, 1, 'yes')");
-$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, date, payed, comments) 
-VALUES(1, 3, 1680310800, 1, 'maybe')");
-$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, date, payed, comments) 
-VALUES(1, 4, 1680310800, 1, 'dragon')");
-$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, date, payed, comments) 
-VALUES(2, 2, 1682902800, 1, 'ground')");
-$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, date, payed, comments) 
-VALUES(2, 3, 1682902800, 0, 'pirate')");
-$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, date, payed, comments) 
-VALUES(3, 2, 1685581200, 0, 'team')");
-$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, date, payed, comments) 
-VALUES(3, 3, 1685581200, 0, 'sheldon')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(1, 2, 1, 'yes')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(1, 3, 1, 'maybe')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(1, 4, 1, 'dragon')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(2, 2, 1, 'ground')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(2, 3, 0, 'pirate')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(3, 2, 0, 'team')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(3, 3, 0, 'sheldon')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(3, 2, 1, 'yes')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(3, 3, 1, 'maybe')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(3, 4, 1, 'dragon')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(4, 2, 1, 'ground')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(4, 3, 0, 'pirate')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(5, 2, 0, 'team')");
+$db->exec("INSERT INTO cosubscribersPayments(subscriptionPayment, payer, payed, comments) 
+VALUES(5, 3, 0, 'sheldon')");
 }
 
 echo "The DB was created successfully. Please go back to the <a href='../'>app</a> now.";
