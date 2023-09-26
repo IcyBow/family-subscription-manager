@@ -44,7 +44,12 @@ if ($action !== '' && $userId !== '') {
                     'cosubscribersPayments'=>'SELECT * FROM cosubscribersPayments'
                     ];
                 } else {
-                    $queries = ['users'=>'SELECT * FROM users'];
+                    $query = "SELECT id FROM 'users' WHERE uuid='" . $userId . "'";
+                //error_log(var_dump($query)); die();
+                $internalId = $db->querySingle($query);
+                    $queries = ['subscriptions'=>'SELECT * FROM subscriptions',
+                    'subscriptionPayments'=>'SELECT * FROM subscriptionPayments',
+                    'cosubscribersPayments'=>'SELECT * FROM cosubscribersPayments'];
                 }
                 foreach($queries as $key => $value) {
                         $queryResult = $db->query($value);

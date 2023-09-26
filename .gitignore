@@ -2,3 +2,5 @@
 *.db
 *.sqlite*
 *.env
+.vscode
+debug*.php
