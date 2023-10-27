@@ -1,13 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
+    <title>Family subscription manager</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div id="app"></div>
-    <script src="js/script.js"></script>
+
+    <!-- The Modal -->
+    <div id="subscriptionModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="closeModal">&times;</span>
+            <h4>General settings</h4>
+            <label for="inputSubscriptionName">Name</label>
+            <input id="inputSubscriptionName" type="text" name="inputSubscriptionName" /> <br>
+            <label for="inputSubscriptionActualPayers">Payers amount</label>
+            <input id="inputSubscriptionActualPayers" type="number" min="1" max="20"
+                name="inputSubscriptionActualPayers" /> <br>
+            <label for="inputSubscriptionActualPrice">Actual price</label>
+            <input id="inputSubscriptionActualPrice" type="number" name="inputSubscriptionActualPrice" /> € <br>
+            <h4>Automatic payment creation</h4>
+            <label for="inputSubscriptionAutoCreate">Create automatically</label>
+            <input id="inputSubscriptionAutoCreate" type="checkbox" name="inputSubscriptionAutoCreate" /> <br>
+            <label for="inputSubscriptionPaymentFrequency">Payment frequency</label>
+            <select name="inputSubscriptionPaymentFrequency" id="inputSubscriptionPaymentFrequency">
+                <option value="1">Daily</option>
+                <option value="2">Weekly</option>
+                <option value="3">Monthly</option>
+                <option value="4">Yearly</option>
+            </select> <br>
+            <label for="inputSubscriptionAutoCreateDay">AutoCreateDay</label>
+            <input id="inputSubscriptionAutoCreateDay" type="number" min="1" max="31"
+                name="inputSubscriptionAutoCreateDay" /> <br>
+            <label for="inputSubscriptionAutoCreateMonth">AutoCreateMonth</label>
+            <input id="inputSubscriptionAutoCreateMonth" type="number" min="1" max="12"
+                name="inputSubscriptionAutoCreateMonth" /> <br>
+            <label for="inputSubscriptionActive">Active</label>
+            <input id="inputSubscriptionActive" type="checkbox" name="inputSubscriptionActive" /> <br>
+            <input class="hidden" id="inputSubscriptionId" type="number" name="inputSubscriptionId" /> <br>
+            <button id="saveSubscription" type="submit">Save</button>
+        </div>
+
+        <script src="js/preferences.js"></script>
+        <script src="js/script.js"></script>
 </body>
+
 </html>

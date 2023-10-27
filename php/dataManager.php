@@ -54,7 +54,8 @@ if ($action !== '' && $userId !== '') {
                     ON subscriptionPayments.id=cosubscribersPayments.subscriptionPayment 
                     INNER JOIN subscriptions
                     ON subscriptionPayments.subscription=subscriptions.id
-                    WHERE payer=$internalId"];
+                    WHERE payer=$internalId
+                    ORDER BY date DESC"];
                 }
                 foreach($queries as $key => $value) {
                         $queryResult = $db->query($value);
